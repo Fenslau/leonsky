@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRoleEnum;
+use App\Traits\Activeable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, MustVerifyEmail, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes, Activeable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +30,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
     ];
 
@@ -44,5 +55,48 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->isActive();
+        }
+        return true;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        if (!empty($this->profile?->image)) {
+            if (Str::startsWith($this->profile?->image, 'user-images')) {
+                return Storage::url($this->profile?->image);
+            } else return $this->profile?->image;
+        } else return null;
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    public function isActive(): bool
+    {
+        return $this->profile?->is_active && !empty($this->email_verified_at);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->profile?->role === UserRoleEnum::ADMIN && $this->isActive();
+    }
+
+    public function isModer(): bool
+    {
+        return $this->profile?->role === UserRoleEnum::MODERATOR && $this->isActive();
     }
 }

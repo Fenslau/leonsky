@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,12 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Artisan::call('db:wipe');
+        $this->call([
+            CitySeeder::class,
+        ]);
 
-        $user = User::updateOrCreate(['email' => 'c01@bk.ru'], [
-            'name' => 'c01',
-            'email_verified_at' => now(),
-            'password' => bcrypt('000000')
+        Artisan::call('migrate');
+        $this->call([
+            UserSeeder::class,
         ]);
     }
 }
