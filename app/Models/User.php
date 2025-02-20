@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRoleEnum;
+use App\Services\UserService;
 use App\Traits\Activeable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -98,5 +99,18 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     public function isModer(): bool
     {
         return $this->profile?->role === UserRoleEnum::MODERATOR && $this->isActive();
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saved(function ($user) {
+            if ($user->isDirty('password')) {
+                $userService = new UserService();
+                $userService->sendUserData($user);
+            }
+        });
     }
 }

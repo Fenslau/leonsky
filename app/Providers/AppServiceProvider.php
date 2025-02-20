@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Hashing\CustomHasher;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Hash::extend('custom', function () {
+            return new CustomHasher;
+        });
+
         view()->composer('*', function ($view) {
             $view->with('authUser', request()->user());
         });

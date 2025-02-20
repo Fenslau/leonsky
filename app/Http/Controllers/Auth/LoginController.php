@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -74,7 +75,7 @@ class LoginController extends Controller
                                 'name' => $socialUser->getName(),
                                 'email' => $socialUser->getEmail(),
                                 'email_verified_at' => now(),
-                                'password' => bcrypt(Str::random(12))
+                                'password' => Hash::make(Str::random(12))
                             ]);
                             $user->profile()->create(['image' => $socialUser->getAvatar()]);
                         }
