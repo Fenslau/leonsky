@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
@@ -68,8 +69,9 @@ class UserResource extends Resource
                     ->password()
                     ->revealable()
                     ->dehydrated(fn(?string $state): bool => filled($state))
+                    ->dehydrateStateUsing(fn($state): string => Hash::make($state))
                     ->required(fn(string $operation): bool => $operation === 'create')
-                    ->maxLength(255),
+                    ->rule(Password::default()),
                 Fieldset::make()
                     ->relationship('profile')
                     ->schema([

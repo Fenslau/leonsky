@@ -4,5 +4,6 @@
 <p>composer install</p>
 <p>php artisan vendor:publish --force --tag=livewire:assets</p>
 <p>php artisan db:seed</p>
+<p>php artisan storage:link</p>
 <p>php artisan filament:optimize</p>
 

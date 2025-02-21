@@ -14,8 +14,8 @@ class CustomPasswordRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!preg_match('/^[A-Za-z0-9._@-]{4,50}$/', $value)) {
-            $fail('Поле :attribute должно быть длиной от 4 до 14 символов и содержать только латинские буквы, цифры и знаки . - _ @');
+        if (!preg_match('/^[A-Za-z0-9._@-]{6,50}$/', $value)) {
+            $fail('Поле :attribute должно быть длиной от 6 до 50 символов и содержать только латинские буквы, цифры и знаки . - _ @');
         }
     }
 }

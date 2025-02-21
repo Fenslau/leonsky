@@ -16,7 +16,6 @@ class ArticleController extends Controller
 
     public function index(ArticleRequest $request): View
     {
-        SendUserDataJob::dispatch(request()->user());
         $articles = $this->repo->index();
         return view('welcome', compact('articles'));
     }

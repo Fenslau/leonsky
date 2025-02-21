@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Password::defaults(function () {
-            return Password::min(4)
+            return Password::min(6)
                 ->rules([new CustomPasswordRule()]);
         });
 
