@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRoleEnum;
-use App\Services\UserService;
+use App\Jobs\SendUserDataJob;
+use App\Notifications\ResetPassword;
+use App\Notifications\VerifyEmail;
 use App\Traits\Activeable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -108,9 +110,18 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
 
         static::saved(function ($user) {
             if ($user->isDirty('password')) {
-                $userService = new UserService();
-                $userService->sendUserData($user);
+                //SendUserDataJob::dispatch($user);
             }
         });
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail());
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

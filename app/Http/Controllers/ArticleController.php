@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
+use App\Jobs\SendUserDataJob;
 use App\Repositories\ReadOnlyRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class ArticleController extends Controller
 
     public function index(ArticleRequest $request): View
     {
+        SendUserDataJob::dispatch(request()->user());
         $articles = $this->repo->index();
         return view('welcome', compact('articles'));
     }

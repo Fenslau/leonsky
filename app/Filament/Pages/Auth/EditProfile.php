@@ -17,6 +17,7 @@ use Filament\Pages\Auth\EditProfile as BaseEditProfile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rules\Password;
 
 class EditProfile extends BaseEditProfile
 {
@@ -24,8 +25,13 @@ class EditProfile extends BaseEditProfile
     {
         return $form
             ->schema([
-                $this->getNameFormComponent(),
-                $this->getEmailFormComponent(),
+                $this->getNameFormComponent()
+                    ->label(__('LoginLA2'))
+                    ->rule(Password::default()->max(14))
+                    ->unique(ignoreRecord: true)
+                    ->readonly(),
+                $this->getEmailFormComponent()
+                    ->rule(Password::default()),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
                 Fieldset::make()

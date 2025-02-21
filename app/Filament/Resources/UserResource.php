@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-
+use Illuminate\Validation\Rules\Password;
 
 class UserResource extends Resource
 {
@@ -47,15 +47,17 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Имя')
+                    ->label(__('LoginLA2'))
                     ->required()
-                    ->maxLength(255),
+                    ->unique(ignoreRecord: true)
+                    ->rule(Password::default()->max(14))
+                    ->disabled((!request()->user()->isAdmin())),
                 TextInput::make('email')
                     ->email()
                     ->unique(ignoreRecord: true)
                     ->required()
                     ->suffixIcon('heroicon-m-envelope')
-                    ->maxLength(255)
+                    ->rule(Password::default())
                     ->disabled(!request()->user()->isAdmin()),
                 DateTimePicker::make('email_verified_at')
                     ->label('Email подтвержден')
@@ -124,7 +126,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Имя')
+                    ->label(__('LoginLA2'))
                     ->sortable()
                     ->limit(16)
                     ->tooltip(function (TextColumn $column): ?string {
