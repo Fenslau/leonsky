@@ -2,7 +2,9 @@
 
 @section('title-block', '')
 @section('description-block', '')
-
+@section('custom-meta')
+<meta name="mailru-domain" content="vCJ8U8uh2pFaG6jt" />
+@endsection
 
 @section('content')
 
