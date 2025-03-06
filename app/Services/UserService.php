@@ -21,7 +21,7 @@ class UserService
             if (!is_null($oldPassword)) {
                 $data['oldpass'] = $oldPassword;
             }
-            $response = Http::post('http://203.31.40.5:9246', $data);
+            $response = Http::post('http://gs1.leone-sky.ru:9246', $data);
 
             $responseData = $response->json();
 

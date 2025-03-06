@@ -44,14 +44,14 @@
           @elseif (count($imageGroup) === 1)
 
           <div class="d-flex justify-content-center">
-            <img style="max-height: 400px;" class="img-fluid rounded-3 my-3" src="{{ Storage::url($imageGroup[0]['url']) }}" alt="{{ $imageGroup[0]['title'] }}">
+            <img style="max-height: 400px;" class="img-fluid my-3" src="{{ Storage::url($imageGroup[0]['url']) }}" alt="{{ $imageGroup[0]['title'] }}">
           </div>
           @php
           $imageGroup = [];
           @endphp
           @endif
 
-          <div class="mt-5 card-text">
+          <div class="mt-3 card-text">
             {!! $element['data']['editor'] !!}
           </div>
           @elseif ($element['type'] === 'image')

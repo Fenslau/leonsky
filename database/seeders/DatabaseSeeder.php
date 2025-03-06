@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         Artisan::call('migrate');
         $this->call([
             UserSeeder::class,
+            ServerStatusSeeder::class,
         ]);
     }
 }

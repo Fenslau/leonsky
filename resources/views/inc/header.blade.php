@@ -1,9 +1,17 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm pb-1">
     <div class="container">
-      <a class="navbar-brand" href="{{ url('/') }}">
+      <a class="navbar-brand me-2" href="{{ url('/') }}">
         <i class="fa fa-home" aria-hidden="true"></i>{{ config('app.name', 'Laravel') }}
       </a>
+      @php($serverStatus = \App\Models\ServerStatus::first())
+      <div class="d-flex flex-column justify-content-between">
+        <div id="login-status" @class(["d-inline-block badge w-auto p-1 mb-1", "text-bg-success"=> $serverStatus->login === true,
+          "text-bg-danger" => $serverStatus->login === false])>Login</div>
+        <div id="game-status" @class(["d-inline-block badge w-auto p-1 mb-1", "text-bg-success"=> $serverStatus->game === true,
+          "text-bg-danger" => $serverStatus->game === false])>Game</div>
+      </div>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
         <span class="navbar-toggler-icon"></span>
       </button>

@@ -1,7 +1,7 @@
 <div class="row g-4">
   @foreach ($articles as $article)
   <div class="w-100">
-    <div class="card border-primary h-100">
+    <div class="card h-100">
       <div class="card-header">
         <a class="nav-link link-body-emphasis pb-0" aria-current="true" href="{{ route('articles.show', $article->slug) }}">
           <h2 style="color: inherit" class="my-0">{{ $article->title }}</h2>
