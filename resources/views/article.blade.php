@@ -35,27 +35,40 @@
 
           @foreach ($content as $element)
           @if ($element['type'] === 'editor')
+
           @if (count($imageGroup) > 1)
           @include('inc.carousel', ['images' => $imageGroup])
           @php
+          $imageGroup = [];
+          @endphp
+          @elseif (count($imageGroup) === 1)
+
+          <div class="d-flex justify-content-center">
+            <img style="max-height: 400px;" class="img-fluid rounded-3 my-3" src="{{ Storage::url($imageGroup[0]['url']) }}" alt="{{ $imageGroup[0]['title'] }}">
+          </div>
+          @php
+          $imageGroup = [];
           @endphp
           @endif
+
           <div class="mt-5 card-text">
             {!! $element['data']['editor'] !!}
           </div>
           @elseif ($element['type'] === 'image')
+
           @php
           $imageGroup[] = $element['data'];
           @endphp
           @endif
           @endforeach
+
           @if (!empty($imageGroup))
-          @if (count($imageGroup) === 1)
+          @if (count($imageGroup) > 1)
+          @include('inc.carousel', ['images' => $imageGroup])
+          @elseif (count($imageGroup) === 1)
           <div class="d-flex justify-content-center">
             <img style="max-height: 400px;" class="img-fluid rounded-3 my-3" src="{{ Storage::url($imageGroup[0]['url']) }}" alt="{{ $imageGroup[0]['title'] }}">
           </div>
-          @else
-          @include('inc.carousel', ['images' => $imageGroup])
           @endif
           @endif
 
