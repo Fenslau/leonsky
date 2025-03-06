@@ -60,6 +60,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
         ];
     }
 
+    protected $with = [
+        'profile',
+    ];
+
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
@@ -80,6 +84,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     public function profile(): HasOne
     {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
     }
 
     public function comments(): HasMany

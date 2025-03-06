@@ -11,7 +11,8 @@
     @yield('custom-meta')
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/css/style.css', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/style.css', 'resources/js/app.js', 'resources/js/script.js'])
+
 </head>
 
 <body>
@@ -21,6 +22,13 @@
             @include('inc.status')
             @include('inc.messages')
             @include('inc.toast')
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col">
+                        @yield('breadcrumbs')
+                    </div>
+                </div>
+            </div>
             @yield('content')
         </main>
         @include('inc.footer')

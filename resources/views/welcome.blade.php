@@ -6,6 +6,7 @@
 <meta name="mailru-domain" content="vCJ8U8uh2pFaG6jt" />
 @endsection
 
+@section('breadcrumbs', Breadcrumbs::render('home'))
 @section('content')
 
 <div class="my-3 container-lg main">
