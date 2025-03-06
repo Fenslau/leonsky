@@ -7,16 +7,8 @@
           <h2 style="color: inherit" class="my-0">{{ $article->title }}</h2>
         </a>
       </div>
-      @if(!empty(collect($article->content)->firstWhere('type', 'image')['data']['url']))
-      <a class="m-auto" href="{{ route('articles.show', $article->slug) }}">
-        <img style="max-height: 400px;"
-          src="{{ Storage::url(collect($article->content)->firstWhere('type', 'image')['data']['url']) }}"
-          class="img-fluid" alt="{{ collect($article->content)->firstWhere('type', 'image')['data']['title'] }}">
-      </a>
-      @endif
-      <div style="max-height:400px;" class="card-body position-relative overflow-hidden">
-
-        <div class="mb-3 card-text d-flex justify-content-between align-items-baseline">
+      <div class="card-body">
+        <div class="card-text d-flex justify-content-between align-items-baseline">
           <div>
             <a class="text-decoration-none" @empty($article->user?->id) @else href="{{ route('users.show', $article->user?->id ?? '') }}" @endempty>
               @empty($article->user?->profile?->image)
@@ -34,8 +26,15 @@
             </small>
           </div>
         </div>
-
-
+      </div>
+      @if(!empty(collect($article->content)->firstWhere('type', 'image')['data']['url']))
+      <a class="m-auto" href="{{ route('articles.show', $article->slug) }}">
+        <img style="max-height: 400px;"
+          src="{{ Storage::url(collect($article->content)->firstWhere('type', 'image')['data']['url']) }}"
+          class="img-fluid" alt="{{ collect($article->content)->firstWhere('type', 'image')['data']['title'] }}">
+      </a>
+      @endif
+      <div style="max-height:400px;" class="card-body position-relative overflow-hidden">
         <div class="card-text position-relative overflow-hidden text-overflow-container">
           @empty($article->highlights)
           {!! collect($article->content)->firstWhere('type', 'editor')['data']['editor'] ?? '' !!}
