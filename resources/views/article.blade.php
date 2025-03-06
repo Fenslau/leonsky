@@ -35,7 +35,7 @@
 
           @foreach ($content as $element)
           @if ($element['type'] === 'editor')
-          @if (!empty($imageGroup))
+          @if (count($imageGroup) > 1)
           @include('inc.carousel', ['images' => $imageGroup])
           @php
           @endphp
