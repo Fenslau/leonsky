@@ -12,8 +12,8 @@
                 ? $comment->user?->profile->image 
                 : Storage::url($comment->user?->profile->image) }}" alt="">
         @endempty
-        <a @class([ 'text-decoration-none badge link-secondary align-middle' , 'badge bg-secondary text-white link-light ms-1'=> $comment->user?->id === $authUser?->id,
-          'badge bg-success text-white link-light ms-1' => $comment->user?->id === $article?->user?->id,
+        <a @class([ 'text-decoration-none badge text-bg-secondary align-middle' , 'text-bg-success'=> $comment->user?->id === $article?->user?->id,
+          'text-bg-info'=> $comment->user?->id === $authUser?->id && $comment->user?->id !== $article?->user?->id,
           ]) href="{{ route('users.show', $comment->user?->id) }}"><span class="fs-6">{{ $comment->user->name }}</span></a>
 
       </div>

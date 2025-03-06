@@ -44,6 +44,11 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              @if(!$authUser->hasVerifiedEmail())
+              <a class="dropdown-item" href="{{ route('verification.notice') }}">
+                <i class="fa fa-envelope" aria-hidden="true"></i> Подтвердить email
+              </a>
+              @endif
               @if($authUser->isAdmin())
               <a class="dropdown-item" href="{{ route('filament.admin.pages.dashboard') }}">
                 <i class="fa fa-cog" aria-hidden="true"></i> Админка
