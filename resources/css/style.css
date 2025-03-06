@@ -30,7 +30,7 @@ figcaption {
 
 .text-overflow-container {
   box-sizing: border-box;
-  height: 92%;
+  height: 100%;
 }
 
 .text-overflow-container::after {
