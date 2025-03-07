@@ -21,7 +21,7 @@
                 <!-- <span>{{ $user->profile->city?->type }} {{ $user->profile->city?->name }}</span> -->
               </a>
               <small class="text-muted">Зарегистрирован: {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</small> <br />
-              <small class="text-muted">{{ $user->profile->about }}</small> <br />
+              <small class="text-muted">{!! $user->profile->about !!}</small> <br />
               <small class="text-muted">Комментариев: <b>{{ $user->comments_count }}</b></small> <br />
             </div>
           </div>
