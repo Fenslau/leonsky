@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 
 class ServerStatus extends Command
@@ -29,21 +30,23 @@ class ServerStatus extends Command
         $host = 'ls1.leone-sky.ru';
         $port = 2106;
         $timeout = 1;
-        $socket = fsockopen($host, $port, $errno, $errstr, $timeout);
-        if (!$socket) {
-            $serverSatatus->update(['login' => false]);
-        } else {
+
+        try {
+            $socket = fsockopen($host, $port, $errno, $errstr, $timeout);
             $serverSatatus->update(['login' => true]);
             fclose($socket);
+        } catch (Exception $e) {
+            $serverSatatus->update(['login' => false]);
         }
+
         $host = 'gs1.leone-sky.ru';
         $port = 7777;
-        $socket = fsockopen($host, $port, $errno, $errstr, $timeout);
-        if (!$socket) {
-            $serverSatatus->update(['game' => false]);
-        } else {
+        try {
+            $socket = fsockopen($host, $port, $errno, $errstr, $timeout);
             $serverSatatus->update(['game' => true]);
             fclose($socket);
+        } catch (Exception $e) {
+            $serverSatatus->update(['game' => false]);
         }
     }
 }
