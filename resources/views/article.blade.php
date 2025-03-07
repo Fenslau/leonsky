@@ -38,7 +38,10 @@
           @elseif (count($imageGroup) === 1)
 
           <div class="d-flex justify-content-center">
-            <img style="max-height: 400px;" class="img-fluid my-3" src="{{ Storage::url($imageGroup[0]['url']) }}" alt="{{ $imageGroup[0]['title'] }}">
+            <img style="max-height: 400px;"
+              class="img-fluid my-3"
+              src="{{ Storage::url($imageGroup[0]['url']) }}"
+              alt="{{ $imageGroup[0]['title'] }}">
           </div>
           @php
           $imageGroup = [];
@@ -68,7 +71,7 @@
 
         </div>
 
-        <ul class="list-group list-group-flush border-secondary">
+        <ul class="list-group list-group-flush border">
           <li class="list-group-item text-muted small">
             @include('inc.article-tags')
           </li>

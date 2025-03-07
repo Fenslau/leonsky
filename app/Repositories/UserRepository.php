@@ -12,7 +12,7 @@ class UserRepository implements ReadOnlyRepositoryInterface
     {
         $users = User::query()
             ->withCount('comments')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->paginate(config('constants.defines.users_per_page'));
         return $users;
     }

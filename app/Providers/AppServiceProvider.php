@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Hashing\CustomHasher;
 use App\Rules\CustomPasswordRule;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -35,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $view->with('authUser', request()->user());
         });
+
+        Paginator::useBootstrapFive();
     }
 }

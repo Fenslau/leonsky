@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Repositories\ArticleRepository;
+use App\Repositories\CityRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\ReadOnlyRepositoryInterface;
@@ -30,6 +32,12 @@ class RepositoryServiceProvider extends ServiceProvider
             ->needs(ReadOnlyRepositoryInterface::class)
             ->give(function () {
                 return new UserRepository();
+            });
+
+        $this->app->when(CityController::class)
+            ->needs(ReadOnlyRepositoryInterface::class)
+            ->give(function () {
+                return new CityRepository();
             });
 
         $this->app->when(CommentController::class)

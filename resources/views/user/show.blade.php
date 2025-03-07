@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title-block', ''.$user->name)
+@section('title-block', $user->name)
 @section('description-block', 'Пользователь проекта ' . config('app.name'))
 
 @section('breadcrumbs', Breadcrumbs::render('user', $user))
@@ -17,8 +17,8 @@
           <div class="my-3 card-text d-flex justify-content-between align-items-center">
             @include('user.avatar', ['user' => $user, 'maxHeight' => 6, 'xHeight' => 5])
             <div class="text-end">
-              <a class="link-secondary" href="{{ route('cities.show', $user->profile->city ?? 0) }}">
-                <!-- <span>{{ $user->profile->city?->type }} {{ $user->profile->city?->name }}</span> -->
+              <a href="{{ route('cities.show', $user->city ?? 0) }}">
+                <span>{{ $user->city?->type }} {{ $user->city?->name }}</span><br />
               </a>
               <small class="text-muted">Зарегистрирован: {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</small> <br />
               <small class="text-muted">{!! $user->profile->about !!}</small> <br />
@@ -27,9 +27,9 @@
           </div>
 
           @empty(count($user->comments))
-          <h5 class="mt-5 text-muted">Пользователь не оставлял комментариев</h5>
+          <h5 class="mt-3 text-muted">Пользователь не оставлял комментариев</h5>
           @else
-          <h5 class="mt-5">Последние комментарии этого пользователя:</h4>
+          <h5 class="mt-3">Последние комментарии этого пользователя:</h4>
             @foreach($user->comments->sortByDesc('created_at')->take(config('constants.defines.last_comments')) as $comment)
             @include('inc.comment', ['article' => null])
             @endforeach

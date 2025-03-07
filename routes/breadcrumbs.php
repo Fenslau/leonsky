@@ -33,12 +33,12 @@ Breadcrumbs::for('user', function ($trail, $user) {
     $trail->push($user->name, route('users.show', $user->id));
 });
 
-Breadcrumbs::for('city.index', function ($trail) {
+Breadcrumbs::for('cities', function ($trail) {
     $trail->parent('home');
-    $trail->push('Города', route('city.index'));
+    $trail->push('Города', route('cities.index'));
 });
 
-Breadcrumbs::for('city.show', function ($trail, $city) {
-    $trail->parent('city.index');
-    $trail->push($city->name, route('city.show', $city->id));
+Breadcrumbs::for('city', function ($trail, $city) {
+    $trail->parent('cities');
+    $trail->push($city->name, route('cities.show', $city->id));
 });
