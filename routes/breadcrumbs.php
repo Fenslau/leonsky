@@ -23,14 +23,14 @@ Breadcrumbs::for('search', function ($trail) {
     $trail->push('Поиск', route('search'));
 });
 
-Breadcrumbs::for('user.index', function ($trail) {
+Breadcrumbs::for('users', function ($trail) {
     $trail->parent('home');
-    $trail->push('Пользователи', route('user.index'));
+    $trail->push('Пользователи', route('users.index'));
 });
 
-Breadcrumbs::for('user.show', function ($trail, $user) {
-    $trail->parent('user.index');
-    $trail->push($user->name, route('user.show', $user->id));
+Breadcrumbs::for('user', function ($trail, $user) {
+    $trail->parent('users');
+    $trail->push($user->name, route('users.show', $user->id));
 });
 
 Breadcrumbs::for('city.index', function ($trail) {

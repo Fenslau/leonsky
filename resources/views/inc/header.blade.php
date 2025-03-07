@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm pb-1">
+  <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm pb-1" data-bs-theme="dark">
     <div class="container">
       <a class="navbar-brand me-2" href="{{ url('/') }}">
         <i class="fa fa-home" aria-hidden="true"></i>{{ config('app.name', 'Laravel') }}
@@ -42,13 +42,7 @@
           @else
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-              @if(!empty($authUser->profile->image))
-              <img src="{{ filter_var($authUser->profile->image, FILTER_VALIDATE_URL) 
-                ? $authUser->profile->image 
-                : Storage::url($authUser->profile->image) }}"
-                style="height: 2.5rem; width: 2.5rem;"
-                class="rounded-circle">
-              @endif
+              @include('user.avatar', ['user' => $authUser, 'maxHeight' => '2.5', 'xHeight' => 2])
               {{ Str::limit($authUser->name, 20) }}
             </a>
 

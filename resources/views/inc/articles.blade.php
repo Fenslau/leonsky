@@ -11,13 +11,7 @@
         <div class="card-text d-flex justify-content-between align-items-baseline">
           <div>
             <a class="text-decoration-none" @empty($article->user?->id) @else href="{{ route('users.show', $article->user?->id ?? '') }}" @endempty>
-              @empty($article->user?->profile?->image)
-              <span class="text-muted align-middle"><i class="fa fa-user"></i></span>
-              @else
-              <img class="rounded-circle d-inline-block" style="max-height: 1.5rem;" src="{{ filter_var($article->user?->profile->image, FILTER_VALIDATE_URL) 
-                ? $article->user?->profile->image 
-                : Storage::url($article->user?->profile->image) }}" alt="">
-              @endempty
+              @include('user.avatar', ['user' => $article->user])
               {{ $article->user->name }}
             </a>
           </div>
