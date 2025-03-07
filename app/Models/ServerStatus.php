@@ -24,7 +24,7 @@ class ServerStatus extends Model
                 event(new ServerStatusUpdated($newLoginStatus));
             }
             if ($status->isDirty('game')) {
-                $newGameStatus = $status->login ? 'game on' : 'game off';
+                $newGameStatus = $status->game ? 'game on' : 'game off';
                 event(new ServerStatusUpdated($newGameStatus));
             }
         });

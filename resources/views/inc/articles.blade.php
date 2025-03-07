@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <ul class="list-group list-group-flush border-secondary">
+      <ul class="list-group list-group-flush border">
         <li class="list-group-item text-muted small">
           @include('inc.article-tags')
         </li>
