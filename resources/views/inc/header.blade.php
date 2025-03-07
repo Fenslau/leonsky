@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm pb-1">
+  <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm pb-1">
     <div class="container">
       <a class="navbar-brand me-2" href="{{ url('/') }}">
         <i class="fa fa-home" aria-hidden="true"></i>{{ config('app.name', 'Laravel') }}
@@ -24,6 +24,7 @@
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ms-auto">
           <!-- Authentication Links -->
+
           @guest
           @if (Route::has('login'))
           <li class="nav-item">
@@ -74,6 +75,19 @@
                   document.getElementById('logout-form').submit();">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> {{ __('Logout') }}
               </a>
+
+              <script>
+                function toggleTheme() {
+                  const html = document.documentElement;
+                  const currentTheme = html.getAttribute('data-bs-theme');
+                  html.setAttribute('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+                }
+              </script>
+              <a class="dropdown-item" href=""
+                onclick="event.preventDefault(); toggleTheme()">
+                <i class="fa fa-lightbulb-o" aria-hidden="true"></i> Переключить тему
+              </a>
+
             </div>
           </li>
           @endguest

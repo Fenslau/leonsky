@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title-block', '')
-@section('description-block', '')
+@section('title-block', config('app.name'))
+@section('description-block', 'Сайт сервера Lineage2 ' . config('app.name'))
 @section('custom-meta')
 <meta name="mailru-domain" content="vCJ8U8uh2pFaG6jt" />
 @endsection
