@@ -119,6 +119,7 @@ class ArticleResource extends Resource
                                     ->columns(1),
                             ])
                             ->reorderableWithButtons()
+                            ->addActionLabel('Добавить контент')
                             ->blockIcons(),
                     ]),
                 Toggle::make('is_active')
